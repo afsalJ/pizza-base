@@ -6,7 +6,7 @@ import java.util.Map;
 public class BaseService {
     private Map<String, Double> bases;
     
-    BaseService(){
+    public BaseService(){
         bases = new HashMap<>();
         bases.put("Regular".toUpperCase(), 50d);
         bases.put("Whole wheat".toUpperCase(), 75d);

@@ -6,7 +6,7 @@ import java.util.Map;
 public class ToppingService {
     private Map<String, Double> toppings;
 
-    ToppingService(){
+    public ToppingService(){
         toppings = new HashMap<>();
         toppings.put("Mozzarella cheese".toUpperCase(), 30d);
         toppings.put("Cheddar cheese".toUpperCase(), 35d);

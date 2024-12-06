@@ -6,7 +6,7 @@ import java.util.List;
 public class SauceService {
     private List<String> sauces;
 
-    SauceService(){
+    public SauceService(){
         sauces = new ArrayList<>();
         sauces.add("Marinara sauce".toUpperCase());
         sauces.add("Pesto saice".toUpperCase());
