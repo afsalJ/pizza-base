@@ -11,11 +11,59 @@ public class Base {
     }
 
     public String addBase(String base, Double price){
-        if(bases.containsKey(base)){
-            return "Base : "+base+" is already available";
-        } else if(price<0){
-            return "Price must be greater than zero";
+        if(isAvailableBase(base)){
+            return "Base : "+base+" is already available!";
+        } 
+        String validationMessage = validateBase(base) +"\n"+validatePrice(price);
+        if(!validationMessage.isEmpty()){
+            return validationMessage;
         }
+        bases.put(base, price);
         return "Base added successfully!";
+    }
+
+    public String deleteBase(String base){
+        if(!isAvailableBase(base)){
+            return "No base available with name:"+base;
+        }
+        bases.remove(base);
+        return "Base deleted successfully";
+    }
+
+    public String updateBase(String base, Double price){
+        if(!isAvailableBase(base)){
+            return "No base available with name"+base;
+        }
+        String validationMessage = validatePrice(price);
+        if(!validationMessage.isEmpty()){
+            return validationMessage;
+        }
+        bases.put(base, price);
+        return "Base updated successfully";
+    }
+
+    public Map<String, Double> getAllBases(){
+        return new HashMap<>(bases);
+    }
+
+    public String validateBase(String base){
+        if(base.trim().equals("")){
+            return "Base must not be empty!";
+        }
+        return "";
+    }
+
+    public String validatePrice(Double price){
+        if(price<0){
+            return "Price must be greater than zero!";
+        }
+        return "";
+    }
+
+    public Boolean isAvailableBase(String base){
+        if(bases.containsKey(base)){
+            return true;
+        } 
+        return false;
     }
 }
