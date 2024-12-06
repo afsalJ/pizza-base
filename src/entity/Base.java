@@ -4,8 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Base {
-    private Map<String, Double> bases = new HashMap<>();
+    private Map<String, Double> bases;
     Base(){
+        bases = new HashMap<>();
         bases.put("Regular", 50d);
         bases.put("Whole wheat", 75d);
     }
@@ -43,6 +44,9 @@ public class Base {
     }
 
     public Map<String, Double> getAllBases(){
+        if(bases==null || bases.isEmpty()){
+            return new HashMap<>();
+        }
         return new HashMap<>(bases);
     }
 
@@ -61,9 +65,6 @@ public class Base {
     }
 
     public Boolean isAvailableBase(String base){
-        if(bases.containsKey(base)){
-            return true;
-        } 
-        return false;
+        return bases.containsKey(base);
     }
 }
