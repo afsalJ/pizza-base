@@ -42,6 +42,7 @@ public class Order {
 
     public void calculateBill(){
         Double baseAmount = baseService.getPrice(pizzaBase);
+        
         Double toppingAmount = 0d;
         String toppingBill = "(";
         for(int i=0;i<topping.size()-1;i++){

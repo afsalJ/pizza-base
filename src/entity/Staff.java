@@ -25,13 +25,13 @@ public class Staff {
     public String takeOrder(){
         System.out.print("Pizza base: ");
         String pizzaBase = sc.nextLine();
-        System.out.println("Sauce: ");
+        System.out.print("Sauce: ");
         String sauce = sc.nextLine();
-        System.out.println("Topping: ");
+        System.out.print("Topping: ");
         String[] toppingArr = sc.nextLine().split(","); 
         List<String> topping = new ArrayList<>();
         for(String i:toppingArr){
-            topping.add(i.trim());
+            if(!i.isBlank())topping.add(i.trim());
         }
         order = new Order(pizzaBase, sauce, topping);
 
@@ -46,13 +46,13 @@ public class Staff {
     public String validateOrder(Order order){
         String message = "";
 
-        if(order.getPizzaBase().trim().isEmpty()){
+        if(order.getPizzaBase().isBlank()){
             message += "Base must be chosen!\n";
         } else if(!baseService.isAvailable(order.getPizzaBase())){
             message += order.getPizzaBase() +" not found!\n";
         }
 
-        if(!order.getSauce().trim().isEmpty() && !sauceService.isAvailable(order.getSauce())){
+        if(!order.getSauce().isBlank() && !sauceService.isAvailable(order.getSauce())){
             message += order.getSauce()+" not found!\n";
         }
 
@@ -60,7 +60,7 @@ public class Staff {
             message += "Atleast one topping must be chosen!\n";
         } else{
             for(String eachTopping : order.getTopping()){
-                if(toppingService.isAvailable(eachTopping)){
+                if(!toppingService.isAvailable(eachTopping)){
                     message += eachTopping +" not found!\n";
                 }
             }
@@ -73,6 +73,6 @@ public class Staff {
         Double billAmount = order.getBillAmount();
         String bill = order.getBill();
 
-        return "Amount to be paid : " + (billAmount) + " RS [ Calculation : "+bill+" ]";
+        return "Amount to be paid : " + (billAmount) + " RS [ Calculation : "+bill+ " = "+ billAmount +" ]";
     }
 }

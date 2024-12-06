@@ -18,8 +18,6 @@ public class Customer {
 
     public void getBill(){
         String staffResponse = staff.generateBill();
-        if(staffResponse.isBlank()){
-            System.out.println(staffResponse);
-        }
+        System.out.println(staffResponse);
     }
 }
