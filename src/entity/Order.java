@@ -68,21 +68,23 @@ public class Order {
                 toppingBill += currentToppingAmount + "+";
             }
             toppingAmount = toppingAmount + toppingService.getPrice(topping.get(topping.size()-1));
-            toppingBill = toppingService.getPrice(topping.get(topping.size()-1)) + ")";
+            toppingBill += toppingService.getPrice(topping.get(topping.size()-1)) + ")";
         }
         
 
         Double addOnsAmount = 0d;
         String addOnsBill = "";
         for(String type:otherAddOns.keySet()){
-            if(!addOnsBill.isBlank())addOnsBill += " + ";
-            Double currentAddOnPrice = otherAddOnsService.getPrice(type, otherAddOns.get(type));
-            addOnsAmount = addOnsAmount + currentAddOnPrice;
-            addOnsBill += currentAddOnPrice; 
+            if(!otherAddOns.get(type).isEmpty()){
+                if(!addOnsBill.isBlank())addOnsBill += " + ";
+                Double currentAddOnPrice = otherAddOnsService.getPrice(type, otherAddOns.get(type));
+                addOnsAmount = addOnsAmount + currentAddOnPrice;
+                addOnsBill += currentAddOnPrice; 
+            }
         }
         
         this.billAmount = baseAmount+toppingAmount+addOnsAmount;
-        this.bill = baseAmount +" (base) +"+ toppingBill+" (topping) +"+addOnsBill;
+        this.bill = baseAmount +" (base) + "+ toppingBill+" (topping) +"+addOnsBill;
     }
 
     public String getBill(){

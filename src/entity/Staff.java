@@ -19,6 +19,7 @@ public class Staff {
 
     public Staff(){
         sc = new Scanner(System.in);
+        order = null;
 
         baseService = new BaseService();
         sauceService = new SauceService();
@@ -44,6 +45,7 @@ public class Staff {
         for(String type:otherAddOnsService.getAllTypes()){
             System.out.print(StringUtils.capitalize(type)+": ");
             otherAddOns.put(type, sc.nextLine());
+            if(otherAddOns.get(type)==null) otherAddOns.put(type, "");
         }
         order = new Order(pizzaBase, sauce, topping, otherAddOns);
 
@@ -92,6 +94,19 @@ public class Staff {
         Double billAmount = order.getBillAmount();
         String bill = order.getBill();
 
-        return "Amount to be paid : " + (billAmount) + " RS [ Calculation : "+bill+ " = "+ billAmount +" ]";
+        Double discount = getDiscount();
+        billAmount-=discount;
+        if(discount == 0d){
+            return "Amount to be paid : " + (billAmount) + " RS [ Calculation : "+bill+" = "+ billAmount +" ]";
+        }
+        return "Amount to be paid : " + (billAmount) + " RS [ Calculation : "+bill+ " - "+discount+" (discount) = "+ billAmount +" ]";
+    }
+
+    public Double getDiscount(){
+        Double discount = 0d;
+        if(order!=null && !order.getOtherAddOns().get("DRINK").isBlank() && !order.getOtherAddOns().get("DESSERT").isBlank()){
+            discount = order.getBillAmount() * (5.0/100.0);
+        }
+        return discount;
     }
 }
