@@ -18,10 +18,7 @@ public class ToppingService {
     }
 
     public Double getPrice(String toppingName){
-        if(!isAvailable(toppingName)){
-            return null;
-        }
-        return toppings.get(toppingName.toUpperCase());
+        return isAvailable(toppingName)?toppings.get(toppingName.toUpperCase()):null;
     }
 
     public Boolean isAvailable(String toppingName){

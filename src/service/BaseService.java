@@ -13,10 +13,7 @@ public class BaseService {
     }
 
     public Double getPrice(String base){
-        if(!isAvailable(base)){
-            return null;
-        }
-        return bases.get(base.toUpperCase());
+        return isAvailable(base)?bases.get(base.toUpperCase()):null;
     }
 
     public Boolean isAvailable(String base){
